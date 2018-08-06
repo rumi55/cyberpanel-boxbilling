@@ -103,6 +103,7 @@ class Server_Manager_CyberPanel extends Server_Manager {
     }
 
     return 'success';
+    $this->getLog()->info('Creating shared hosting account');
     
   }
 }
