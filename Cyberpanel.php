@@ -67,4 +67,42 @@ class Server_Manager_CyberPanel extends Server_Manager {
         $this->getLog()->info('Synchronizing account with server '.$a->getUsername());
         return $a;
     }
+  
+  
+  public function createAccount(Server_Account $a) {
+    
+    try {
+    	// Set all parameters
+        $adminUser = $params["serverusername"];
+        $adminPass = $params["serverpassword"];
+        $websiteOwner = $params["username"];
+        $ownerPassword = $params["password"];
+        $ownerEmail = $params["clientsdetails"]["email"];
+        $domainName = $params["domain"];
+        $adminPass = $params["serverpassword"];
+        $packageName = $params['configoption1'];
+
+        $api = new CyberApi();
+        $new_account = $api->create_new_account($params, $adminUser, $adminPass, $domainName, $ownerEmail, $packageName, $websiteOwner, $ownerPassword);
+
+        // Checking for errors
+        if (!$new_account["createWebSiteStatus"]){
+        	return $new_account["error_message"];
+        }
+    } catch (Exception $e) {
+        // Record the error in WHMCS's module log.
+        logModuleCall(
+            'cyberpanel',
+            __FUNCTION__,
+            $params,
+            $e->getMessage(),
+            $e->getTraceAsString()
+        );
+
+        return $e->getMessage();
+    }
+
+    return 'success';
+    
+  }
 }
