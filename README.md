@@ -1,4 +1,4 @@
 # Cyberpanel-BoxBilling
-BoxBilling extension for CyberPanel
+BoxBilling extension for CyberPanel - not finished.
 
-Feel free to edit
+Feel free to cotribute. 
